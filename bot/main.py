@@ -2,9 +2,13 @@
 
 import asyncio
 import os
+import nest_asyncio
 from pyrogram import Client
 from bot.config import BOT_TOKEN, API_ID, API_HASH
 from bot.handlers import init_handlers
+
+# ✅ Fix asyncio loop reuse issues
+nest_asyncio.apply()
 
 # Optional: পুরনো session ব্যাকআপ/মুছে ফেলা
 SESSION_FILE = "RajuNewBot.session"
@@ -34,9 +38,8 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        # asyncio.run(main()) in Python 3.12 sometimes conflicts; use event loop manually
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
+        # Python 3.11/3.12 compatible event loop
+        loop = asyncio.get_event_loop()
         loop.run_until_complete(main())
     except (KeyboardInterrupt, SystemExit):
         print("[INFO] Bot stopped manually")
