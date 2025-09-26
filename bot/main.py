@@ -3,16 +3,7 @@
 import asyncio
 from pyrogram import Client
 from bot.config import BOT_TOKEN, API_ID, API_HASH
-
-# Handlers import
-from bot.handlers import (
-    register_start,
-    register_cap,
-    register_account,
-    register_withdraw,
-    register_support,
-    register_admin
-)
+from bot.handlers import init_handlers   # ✅ শুধু init_handlers ইমপোর্ট করো
 
 async def main():
     # Create Pyrogram Client
@@ -25,12 +16,7 @@ async def main():
     )
 
     # Register all handlers
-    register_start(app)
-    register_cap(app)
-    register_account(app)
-    register_withdraw(app)
-    register_support(app)
-    register_admin(app)
+    init_handlers(app)   # ✅ সব হ্যান্ডলার একসাথে রেজিস্টার হবে
 
     print("[INFO] Bot is starting...")
 
